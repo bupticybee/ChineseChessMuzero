@@ -29,7 +29,7 @@ class Node{
         float value();
 };
 
-PyObject * call_function(PyObject * game,std::string method,PyObject * args);
+PyObject * call_function(PyObject * func,std::string method,PyObject * args,bool obj=false);
 static void reprint(PyObject *obj) ;
 
 void run_mcts_cpp(
@@ -39,5 +39,7 @@ void run_mcts_cpp(
         PyObject * game,
         bool train
         );
+
+PyObject* parse_array(PyObject* arr);
 
 #endif
