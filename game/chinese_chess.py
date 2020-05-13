@@ -82,3 +82,6 @@ class ChineseChess(AbstractGame):
 
     def make_observation_str(self) -> np.array:
         return self.env.render(mode="absolute")
+
+    def print_observation_str(self):
+        print(self.env.render(mode="absolute"))

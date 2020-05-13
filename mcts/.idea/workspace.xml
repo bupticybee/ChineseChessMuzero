@@ -7,7 +7,6 @@
     <option name="USE_IDEA_PROXY_SETTINGS" value="true" />
     <option name="INSPECTIONS_BUILD_TYPE_IDS" />
     <option name="DUPLICATES_BUILD_TYPE_IDS" />
-    <option name="ENABLE_SUITABLE_CONFIGURATION_CACHING" value="true" />
     <option name="COVERAGE_SETTINGS" />
     <option name="TEST_STATUS_ENABLED" value="true" />
     <option name="TEST_STATUS_SHOW_SUCCESSFUL" value="false" />
@@ -31,11 +30,16 @@
   </component>
   <component name="CMakeSettings">
     <configurations>
-      <configuration PROFILE_NAME="Debug-MinGW" CONFIG_NAME="Debug" TOOLCHAIN_NAME="MinGW" />
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" TOOLCHAIN_NAME="Default" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e76484f5-9e4b-4208-aa27-000eec0e00e3" name="Default Changelist" comment="" />
+    <list default="true" id="e76484f5-9e4b-4208-aa27-000eec0e00e3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcts_src/mcts_search.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/mcts_src/mcts_search.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcts_src/mcts_search.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/mcts_src/mcts_search.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../networks/network.py" beforeDir="false" afterPath="$PROJECT_DIR$/../networks/network.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -58,7 +62,7 @@
     <expand />
     <select />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug-MinGW" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -66,10 +70,14 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="BmZtnjaQ" />
   </component>
   <component name="ProjectId" id="1bB2S84xrhM8owC4kHrDsTKblev" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -77,12 +85,13 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="CMakeSettings" />
   </component>
   <component name="RunManager">
-    <configuration name="mcts" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MCTSCPP" TARGET_NAME="mcts" CONFIG_NAME="Debug-MinGW" RUN_TARGET_PROJECT_NAME="MCTSCPP" RUN_TARGET_NAME="mcts">
+    <configuration name="mcts" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MCTSCPP" TARGET_NAME="mcts" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MCTSCPP" RUN_TARGET_NAME="mcts">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -101,6 +110,8 @@
       <workItem from="1588091164202" duration="736000" />
       <workItem from="1588091907317" duration="1263000" />
       <workItem from="1588166413151" duration="10080000" />
+      <workItem from="1588406455655" duration="2556000" />
+      <workItem from="1588487591182" duration="7081000" />
     </task>
     <servers />
   </component>
@@ -108,13 +119,19 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="461" y="162" key="SettingsEditor" timestamp="1588175976814">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="-8" y="78" key="SettingsEditor" timestamp="1588406491427">
+      <screen x="0" y="0" width="1280" height="800" />
     </state>
+    <state x="-8" y="78" key="SettingsEditor/0.0.1280.800@0.0.1280.800" timestamp="1588406491427" />
     <state x="461" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1588175976814" />
-    <state x="640" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1588166414740">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="427" y="262" key="com.intellij.ide.util.TipDialog" timestamp="1588487673639">
+      <screen x="0" y="0" width="1280" height="800" />
     </state>
+    <state x="427" y="262" key="com.intellij.ide.util.TipDialog/0.0.1280.800@0.0.1280.800" timestamp="1588487673639" />
     <state x="640" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588166414740" />
+    <state x="402" y="38" key="refactoring.ChangeSignatureDialog" timestamp="1588410379413">
+      <screen x="0" y="0" width="1280" height="800" />
+    </state>
+    <state x="402" y="38" key="refactoring.ChangeSignatureDialog/0.0.1280.800@0.0.1280.800" timestamp="1588410379413" />
   </component>
 </project>

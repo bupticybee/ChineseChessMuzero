@@ -24,13 +24,21 @@ def add_exploration_noise(config: MuZeroConfig, node: Node):
         node.children[a].prior = node.children[a].prior * (1 - frac) + n * frac
 
 
-def run_mcts(config: MuZeroConfig, root: Node, action_history: ActionHistory, network: BaseNetwork):
+def run_mcts(config: MuZeroConfig, action_history: ActionHistory, network: BaseNetwork, game, train):
     """
     Core Monte Carlo Tree Search algorithm.
     To decide on an action, we run N simulations, always starting at the root of
     the search tree and traversing the tree according to the UCB formula until we
     reach a leaf node.
     """
+    root = Node(0)
+    current_observation = game.make_observation(-1)
+
+    print(game.make_observation_str())
+
+    expand_node(root, game.to_play(), game.legal_actions(), network.initial_inference(current_observation))
+    if train:
+        add_exploration_noise(config, root)
 
     # TODO 这里乱clone还得了，太慢了,这个必须优化
     for _ in range(config.num_simulations):
@@ -56,6 +64,7 @@ def run_mcts(config: MuZeroConfig, root: Node, action_history: ActionHistory, ne
         t3 = time.time()
         print("cpu time",t1 - t0 + t3 - t2)
         print("gpu time",t2 - t1)
+    return root
 
 
 def select_child(config: MuZeroConfig, node: Node):
