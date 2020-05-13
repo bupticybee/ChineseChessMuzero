@@ -10,6 +10,7 @@
 #include <Python.h>
 #include <memory>
 #include <numpy/ndarraytypes.h>
+using namespace std;
 
 float plus(float a, float b);
 
@@ -28,6 +29,8 @@ class Node{
         bool expanded();
         float value();
 };
+
+void expand_node(shared_ptr<Node> node, PyObject * to_play,PyObject * actions,PyObject * network_output);
 
 PyObject * call_function(PyObject * func,std::string method,PyObject * args,bool obj=false);
 static void reprint(PyObject *obj) ;

@@ -94,6 +94,11 @@ PyObject * parse_array(PyObject * arr){
     return pArray;
 }
 
+void expand_node(shared_ptr<Node> node, PyObject * to_play,PyObject * actions,PyObject * network_output){
+    //TODO finish here
+    int player;
+}
+
 void run_mcts_cpp(
         PyObject * config,
         PyObject * action_history,
@@ -117,8 +122,10 @@ void run_mcts_cpp(
 
     //result = parse_array(result);
     //args = Py_BuildValue("(s)",result);
-    call_function(network,"initial_inference",result,true);
+    PyObject * network_result = call_function(network,"initial_inference",result,true);
     Py_DECREF(result);
+
+    Py_DECREF(network_result);
 
 }
 

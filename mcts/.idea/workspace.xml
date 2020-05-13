@@ -7,6 +7,7 @@
     <option name="USE_IDEA_PROXY_SETTINGS" value="true" />
     <option name="INSPECTIONS_BUILD_TYPE_IDS" />
     <option name="DUPLICATES_BUILD_TYPE_IDS" />
+    <option name="ENABLE_SUITABLE_CONFIGURATION_CACHING" value="true" />
     <option name="COVERAGE_SETTINGS" />
     <option name="TEST_STATUS_ENABLED" value="true" />
     <option name="TEST_STATUS_SHOW_SUCCESSFUL" value="false" />
@@ -38,7 +39,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mcts_src/mcts_search.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/mcts_src/mcts_search.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mcts_src/mcts_search.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/mcts_src/mcts_search.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../networks/network.py" beforeDir="false" afterPath="$PROJECT_DIR$/../networks/network.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +62,7 @@
     <expand />
     <select />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug-MinGW" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -88,10 +88,10 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="CMakeSettings" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunManager">
-    <configuration name="mcts" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MCTSCPP" TARGET_NAME="mcts" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MCTSCPP" RUN_TARGET_NAME="mcts">
+    <configuration name="mcts" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MCTSCPP" TARGET_NAME="mcts" CONFIG_NAME="Debug-MinGW" RUN_TARGET_PROJECT_NAME="MCTSCPP" RUN_TARGET_NAME="mcts">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -119,11 +119,11 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="-8" y="78" key="SettingsEditor" timestamp="1588406491427">
-      <screen x="0" y="0" width="1280" height="800" />
+    <state x="461" y="162" key="SettingsEditor" timestamp="1589387397582">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-8" y="78" key="SettingsEditor/0.0.1280.800@0.0.1280.800" timestamp="1588406491427" />
-    <state x="461" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1588175976814" />
+    <state x="461" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1589387397582" />
     <state x="427" y="262" key="com.intellij.ide.util.TipDialog" timestamp="1588487673639">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
