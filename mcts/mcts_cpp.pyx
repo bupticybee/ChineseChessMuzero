@@ -8,7 +8,7 @@ from libcpp cimport bool
 
 
 cdef extern from "mcts_search.cpp":
-    float plus(float a,float b);
+    float pluscpp(float a,float b);
     void say_hello_cpp(object obj);
     void run_mcts_cpp(
         object config,
@@ -20,7 +20,7 @@ cdef extern from "mcts_search.cpp":
 
 
 def plus_test(a,b):
-    return plus(a,b)
+    return pluscpp(a,b)
 
 def run_mcts(config,action_history,network,game,train):
     return run_mcts_cpp(config,action_history,network,game,train)

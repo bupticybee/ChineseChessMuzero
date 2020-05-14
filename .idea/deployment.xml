@@ -7,6 +7,12 @@
           <mappings>
             <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
           </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/venv" />
+            <excludedPath local="true" path="$PROJECT_DIR$/mcts/venv" />
+            <excludedPath local="true" path="$PROJECT_DIR$/mcts/cmake-build-debug-mingw" />
+            <excludedPath local="true" path="$PROJECT_DIR$/mcts/cmake-build-debug" />
+          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>

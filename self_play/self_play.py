@@ -9,7 +9,6 @@ from self_play.utils import Node
 from training.replay_buffer import ReplayBuffer
 from mcts_cpp import run_mcts
 
-
 def run_selfplay(config: MuZeroConfig, storage: SharedStorage, replay_buffer: ReplayBuffer, train_episodes: int):
     """Take the latest network, produces multiple games and save them in the shared replay buffer"""
     network = storage.latest_network()

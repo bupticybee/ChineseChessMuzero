@@ -74,6 +74,9 @@ class ChineseChess(AbstractGame):
             raise RuntimeError("error player {}".format(self.env.current_player))
         return action_list
 
+    def to_play(self) -> Player:
+        return Player(self.env.current_player)
+
     def make_observation(self, state_index: int) -> np.array:
         return self.observations[state_index]
 

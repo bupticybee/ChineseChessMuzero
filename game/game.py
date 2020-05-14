@@ -24,6 +24,8 @@ class Player(object):
     A one player class.
     This class is useless, it's here for legacy purpose and for potential adaptations for a two players MuZero.
     """
+    def __init__(self,player=0):
+        self.player = player
 
     def __eq__(self, other):
         return True

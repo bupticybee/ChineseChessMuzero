@@ -12,7 +12,7 @@
 #include <numpy/ndarraytypes.h>
 using namespace std;
 
-float plus(float a, float b);
+float pluscpp(float a, float b);
 
 void say_hello_cpp(PyObject * obj);
 
@@ -24,15 +24,15 @@ class Node{
         float prior;
         float value_sum;
         std::vector<Node*> children;
-        void* hidden_state;
-        float reward;
+        PyObject * hidden_state;
+        double reward;
         bool expanded();
         float value();
 };
 
 void expand_node(shared_ptr<Node> node, PyObject * to_play,PyObject * actions,PyObject * network_output);
 
-PyObject * call_function(PyObject * func,std::string method,PyObject * args,bool obj=false);
+PyObject * call_function(PyObject * func,std::string method,PyObject * args= NULL,bool obj=false);
 static void reprint(PyObject *obj) ;
 
 void run_mcts_cpp(
