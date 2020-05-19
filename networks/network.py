@@ -17,7 +17,7 @@ class NetworkOutput(typing.NamedTuple):
 
     @staticmethod
     def build_policy_logits(policy_logits):
-        return {Action(i): logit for i, logit in enumerate(policy_logits[0])}
+        return policy_logits[0].tolist()#{Action(i): logit for i, logit in enumerate(policy_logits[0])}
 
 
 class AbstractNetwork(ABC):

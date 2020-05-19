@@ -7,6 +7,7 @@
 #include <malloc.h>
 #include <iostream>
 #include <vector>
+#include <map>
 #include <Python.h>
 #include <memory>
 #include <numpy/ndarraytypes.h>
@@ -23,7 +24,7 @@ class Node{
         int to_play;
         float prior;
         float value_sum;
-        std::vector<Node*> children;
+        std::map<int,shared_ptr<Node>> children;
         PyObject * hidden_state;
         double reward;
         bool expanded();

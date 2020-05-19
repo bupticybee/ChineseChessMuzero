@@ -102,17 +102,31 @@ PyObject * parse_array(PyObject * arr){
 }
 
 void expand_node(shared_ptr<Node> node, PyObject * to_play,PyObject * actions,PyObject * network_output){
-    //TODO finish here
     long player;
     PyObject* player_obj = PyObject_GetAttrString(to_play,"player");
     player = PyLong_AsLong(player_obj);
     Py_DECREF(player_obj);
     node->to_play = player;
     node->hidden_state = PyObject_GetAttrString(network_output,"hidden_state");
+
+    PyObject * policy_logits = PyObject_GetAttrString(network_output,"policy_logits");
     PyObject * reward_obj = PyObject_GetAttrString(network_output,"reward");
     node->reward = PyFloat_AsDouble(reward_obj);
     Py_DECREF(reward_obj);
     // TODO finish here
+    Py_ssize_t action_number = PyList_Size(actions);
+    PyObject * one_action;
+    PyObject * one_prob;
+    for(int i = 0;i < action_number;i ++){
+        one_action = PyList_GetItem(actions, i);
+        one_prob = PyList_GetItem(policy_logits, i);
+        PyObject* one_action_index = PyObject_GetAttrString(one_action,"index");
+        int action_int = PyInt_AsLong(one_action_index);
+        float action_prob = PyFloat_AsDouble(one_prob);
+        node->children[action_int] = make_shared<Node>(action_prob);
+        Py_DECREF(one_action_index);
+        Py_DECREF(one_prob);
+    }
 }
 
 void run_mcts_cpp(
@@ -144,12 +158,20 @@ void run_mcts_cpp(
     PyObject * legal_actions = call_function(game, "legal_actions", NULL);
     PyObject * to_play = call_function(game, "to_play", NULL);
 
+    // 执行蒙特卡洛树根节点展开
     expand_node(root, to_play,legal_actions,network_result);
 
     Py_DECREF(observation);
     Py_DECREF(network_result);
     Py_DECREF(legal_actions);
     Py_DECREF(to_play);
+
+    PyObject * sim_time_obj = PyObject_GetAttrString(config,"num_simulations");
+    int sim_times = PyInt_AsLong(sim_time_obj);
+    Py_DECREF(sim_time_obj);
+    for(int simulate_id = 0;simulate_id < sim_times;simulate_id ++){
+        //TODO 进行每一次mcts迭代
+    }
 
 }
 
