@@ -72,10 +72,10 @@ class ChineseChessNetwork(BaseNetwork):
         value = float(np.tanh(value_support[0][0]))
         return value
 
-    def _conditioned_hidden_state(self, hidden_state: torch.Tensor, action: Action) -> np.array:
+    def _conditioned_hidden_state(self, hidden_state: torch.Tensor, action: int) -> np.array:
         #hidden_state = hidden_state.cpu().detach().numpy()
         action_plane = np.zeros((2,10,9))
-        action_ind = action.index
+        action_ind = action
         from_ind,to_ind = divmod(action_ind,90)
         def set_plane_onehot(action_plane,pos,plane_id):
             y,x = divmod(pos,9)

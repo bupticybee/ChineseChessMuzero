@@ -36,12 +36,15 @@ float Node::value(){
 
 Node::Node(float prior) {
     this->prior = prior;
+    this->value_sum = 0;
+    this->visit_count = 0;
+    this->reward = 0;
 }
 
-PyObject * call_function(PyObject * func,std::string method,PyObject * args,bool obj){
-    bool noarg = (args == NULL);
+PyObject * call_function(PyObject * func,std::string method,bool obj,PyObject * args1,PyObject * args2){
+    bool noarg = (args1 == NULL);
     if(noarg){
-        args = PyDict_New();
+        args1 = PyDict_New();
     }
 
 
@@ -51,15 +54,19 @@ PyObject * call_function(PyObject * func,std::string method,PyObject * args,bool
 
     PyObject *result;
     if(obj) {
-        result = PyObject_CallFunctionObjArgs(myobject_method, args,NULL);
+        if(args2 == NULL) {
+            result = PyObject_CallFunctionObjArgs(myobject_method, args1, NULL);
+        }else{
+            result = PyObject_CallFunctionObjArgs(myobject_method, args1,args2, NULL);
+        }
     }else {
-        result = PyObject_Call(myobject_method, args, keywords);
+        result = PyObject_Call(myobject_method, args1, keywords);
     }
 
     Py_DECREF(keywords);
     Py_DECREF(myobject_method);
     if(noarg){
-        Py_DECREF(args);
+        Py_DECREF(args1);
     }
     return result;
 }
@@ -93,6 +100,7 @@ PyObject * parse_array(PyObject * arr){
     }
 
     std::cout << __LINE__ << std::endl;
+    delete[] c_arr;
     Py_DECREF(np_ret);
 
     std::cout << __LINE__ << std::endl;
@@ -101,11 +109,7 @@ PyObject * parse_array(PyObject * arr){
     return pArray;
 }
 
-void expand_node(shared_ptr<Node> node, PyObject * to_play,PyObject * actions,PyObject * network_output){
-    long player;
-    PyObject* player_obj = PyObject_GetAttrString(to_play,"player");
-    player = PyLong_AsLong(player_obj);
-    Py_DECREF(player_obj);
+void expand_node(shared_ptr<Node> node, int player,PyObject * actions,PyObject * network_output){
     node->to_play = player;
     node->hidden_state = PyObject_GetAttrString(network_output,"hidden_state");
 
@@ -113,7 +117,6 @@ void expand_node(shared_ptr<Node> node, PyObject * to_play,PyObject * actions,Py
     PyObject * reward_obj = PyObject_GetAttrString(network_output,"reward");
     node->reward = PyFloat_AsDouble(reward_obj);
     Py_DECREF(reward_obj);
-    // TODO finish here
     Py_ssize_t action_number = PyList_Size(actions);
     PyObject * one_action;
     PyObject * one_prob;
@@ -124,8 +127,48 @@ void expand_node(shared_ptr<Node> node, PyObject * to_play,PyObject * actions,Py
         int action_int = PyInt_AsLong(one_action_index);
         float action_prob = PyFloat_AsDouble(one_prob);
         node->children[action_int] = make_shared<Node>(action_prob);
+        node->children_actions.push_back(action_int);
         Py_DECREF(one_action_index);
         Py_DECREF(one_prob);
+    }
+}
+
+float ucb_score(int pb_c_base,float pb_c_init,shared_ptr<Node> parent,shared_ptr<Node> child){
+    float pb_c = log((parent->visit_count + pb_c_base + 1) / pb_c_base) + pb_c_init;
+    pb_c *= (sqrt(parent->visit_count) / (child->visit_count + 1));
+    float prior_score = pb_c * child->prior;
+    float value_score = child->value();
+    if(isnan(value_score)){
+        value_score = 0;
+    }
+    return prior_score + value_score;
+}
+
+int select_child(shared_ptr<Node> node,int pb_c_base,float pb_c_init){
+    /*
+    Select the child with the highest UCB score.
+    */
+    float current_score,max_score=-INFINITY;
+    int max_action = -1;
+
+    for(pair<const int, shared_ptr<Node>> one_child : node->children){
+        int one_action = one_child.first;
+        shared_ptr<Node> child = one_child.second;
+        current_score = ucb_score(pb_c_base,pb_c_init,node,child);
+        if(current_score > max_score){
+            max_score = current_score;
+            max_action = one_action;
+        }
+    }
+    return max_action;
+}
+
+void backpropagate(std::vector<shared_ptr<Node>> search_path,float value,int to_play,float discount){
+    for(int i = search_path.size() - 1;i >= 0;i --){
+        shared_ptr<Node> node = search_path[i];
+        node->value_sum += (node->to_play == to_play? value:-value);
+        node->visit_count += 1;
+        value = node->reward + discount * value;
     }
 }
 
@@ -145,7 +188,7 @@ void run_mcts_cpp(
     // 利用环境产生当前局面的observation
     PyObject *observation;
     PyObject *args = Py_BuildValue("(i)",-1);
-    observation = call_function(game, "make_observation", args);
+    observation = call_function(game, "make_observation",false, args);
     Py_DECREF(args);
 
     // 打印observation
@@ -154,12 +197,18 @@ void run_mcts_cpp(
     // 执行网络前向
     //observation = parse_array(observation);
     //args = Py_BuildValue("(s)",observation);
-    PyObject * network_result = call_function(network, "initial_inference", observation, true);
-    PyObject * legal_actions = call_function(game, "legal_actions", NULL);
-    PyObject * to_play = call_function(game, "to_play", NULL);
+    PyObject * network_result = call_function(network, "initial_inference", true, observation);
+    PyObject * legal_actions = call_function(game, "legal_actions",false, NULL);
+    PyObject * action_space = call_function(action_history, "action_space",false, NULL);
+    PyObject * to_play = call_function(game, "to_play",false, NULL);
+
+    int root_player;
+    PyObject* player_obj = PyObject_GetAttrString(to_play,"player");
+    root_player = PyLong_AsLong(player_obj);
+    Py_DECREF(player_obj);
 
     // 执行蒙特卡洛树根节点展开
-    expand_node(root, to_play,legal_actions,network_result);
+    expand_node(root, root_player,legal_actions,network_result);
 
     Py_DECREF(observation);
     Py_DECREF(network_result);
@@ -169,9 +218,40 @@ void run_mcts_cpp(
     PyObject * sim_time_obj = PyObject_GetAttrString(config,"num_simulations");
     int sim_times = PyInt_AsLong(sim_time_obj);
     Py_DECREF(sim_time_obj);
-    for(int simulate_id = 0;simulate_id < sim_times;simulate_id ++){
-        //TODO 进行每一次mcts迭代
-    }
 
+    PyObject * discount_obj = PyObject_GetAttrString(config,"discount");
+    float discount = PyFloat_AsDouble(discount_obj);
+    Py_DECREF(discount_obj);
+
+    //初始化search path等等
+
+    for(int simulate_id = 0;simulate_id < sim_times;simulate_id ++){
+        std::vector<shared_ptr<Node>> search_path;
+        shared_ptr<Node> node = root;
+        search_path.push_back(root);
+        int current_player = root_player;
+
+        int action_selected;
+        while(node->expanded()){
+            action_selected = select_child(node);
+            node = node->children[action_selected];
+            current_player = 1 - current_player;
+            search_path.push_back(node);
+        }
+        shared_ptr<Node> parent = search_path[search_path.size() - 2];
+
+        PyObject* action =  PyInt_FromLong(action_selected);
+        network_result = call_function(network, "recurrent_inference",true,parent->hidden_state,action);
+        expand_node(node, current_player,action_space,network_result);
+
+        PyObject * value_obj = PyObject_GetAttrString(network_result,"value");
+        float value = PyFloat_AsDouble(value_obj);
+        backpropagate(search_path,value,current_player,discount);
+        Py_DECREF(network_result);
+        Py_DECREF(action);
+        Py_DECREF(value_obj);
+    }
+    Py_DECREF(action_space);
+    // TODO 返回python object的Node
 }
 

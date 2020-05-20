@@ -25,15 +25,19 @@ class Node{
         float prior;
         float value_sum;
         std::map<int,shared_ptr<Node>> children;
+        std::vector<int> children_actions;
         PyObject * hidden_state;
         double reward;
         bool expanded();
         float value();
 };
 
-void expand_node(shared_ptr<Node> node, PyObject * to_play,PyObject * actions,PyObject * network_output);
+void expand_node(shared_ptr<Node> node, int player,PyObject * actions,PyObject * network_output);
+float ucb_score(int pb_c_base,float pb_c_init,shared_ptr<Node> parent,shared_ptr<Node> child);
+int select_child(shared_ptr<Node> node,int pb_c_base=19652,float pb_c_init=1.25);
+void backpropagate(std::vector<shared_ptr<Node>> search_path,float value,int to_play,float discount);
 
-PyObject * call_function(PyObject * func,std::string method,PyObject * args= NULL,bool obj=false);
+PyObject * call_function(PyObject * func,std::string method,bool obj,PyObject * args1= NULL,PyObject * args2=NULL);
 static void reprint(PyObject *obj) ;
 
 void run_mcts_cpp(

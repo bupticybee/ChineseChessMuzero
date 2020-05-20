@@ -56,7 +56,7 @@ def run_mcts(config: MuZeroConfig, action_history: ActionHistory, network: BaseN
         # hidden state given an action and the previous hidden state.
         parent = search_path[-2]
         t1 = time.time()
-        network_output = network.recurrent_inference(parent.hidden_state, history.last_action())
+        network_output = network.recurrent_inference(parent.hidden_state, history.last_action().index)
         t2 = time.time()
         expand_node(node, history.to_play(), history.action_space(), network_output)
 

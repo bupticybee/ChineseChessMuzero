@@ -45,6 +45,7 @@ def play_game(config: MuZeroConfig, network: AbstractNetwork, train: bool = True
 
         # We then run a Monte Carlo Tree Search using only action sequences and the
         # model learned by the networks.
+        #root = run_mcts(config, game.action_history(), network, game, train)
         root = run_mcts(config, game.action_history(), network, game, train)
         action = select_action(config, len(game.history), root, network, mode=mode_action_select)
         game.apply(action)

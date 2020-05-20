@@ -30,7 +30,6 @@ def muzero(config: MuZeroConfig):
 
     return storage.latest_network()
 
-
 if __name__ == '__main__':
     config = make_chinese_chess_config()
     muzero(config)

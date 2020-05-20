@@ -101,7 +101,7 @@ class BaseNetwork(AbstractNetwork):
                                hidden_state=hidden_representation[0])
         return output
 
-    def recurrent_inference(self, hidden_state: np.array, action: Action) -> NetworkOutput:
+    def recurrent_inference(self, hidden_state: np.array, action: int) -> NetworkOutput:
         """dynamics + prediction function"""
 
         conditioned_hidden = self._conditioned_hidden_state(hidden_state, action)
@@ -117,7 +117,7 @@ class BaseNetwork(AbstractNetwork):
         pass
 
     @abstractmethod
-    def _conditioned_hidden_state(self, hidden_state: np.array, action: Action) -> np.array:
+    def _conditioned_hidden_state(self, hidden_state: np.array, action: int) -> np.array:
         pass
 
     def cb_get_variables(self) -> Callable:
