@@ -15,14 +15,15 @@ cdef extern from "mcts_search.cpp":
         object action_history,
         object network,
         object game,
-        bool train
+        bool train,
+        object root
     );
 
 
 def plus_test(a,b):
     return pluscpp(a,b)
 
-def run_mcts(config,action_history,network,game,train):
-    return run_mcts_cpp(config,action_history,network,game,train)
-
+def run_mcts(config,action_history,network,game,train,root):
+    run_mcts_cpp(config,action_history,network,game,train,root)
+    return root
 

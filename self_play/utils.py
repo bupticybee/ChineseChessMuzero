@@ -1,5 +1,6 @@
 """Helpers for the MCTS"""
 from typing import Optional
+from copy import deepcopy
 
 import numpy as np
 
@@ -50,6 +51,9 @@ class Node(object):
         if self.visit_count == 0:
             return None
         return self.value_sum / self.visit_count
+
+    def clone(self):
+        return deepcopy(self)
 
 
 def softmax_sample(visit_counts, actions, t):

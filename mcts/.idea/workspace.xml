@@ -37,6 +37,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e76484f5-9e4b-4208-aa27-000eec0e00e3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcts_cpp.pyx" beforeDir="false" afterPath="$PROJECT_DIR$/mcts_cpp.pyx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mcts_src/mcts_search.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/mcts_src/mcts_search.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mcts_src/mcts_search.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/mcts_src/mcts_search.hpp" afterDir="false" />
     </list>
@@ -88,7 +89,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="CMakeSettings" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunManager">
     <configuration name="mcts" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MCTSCPP" TARGET_NAME="mcts" CONFIG_NAME="Debug-MinGW" RUN_TARGET_PROJECT_NAME="MCTSCPP" RUN_TARGET_NAME="mcts">
@@ -116,7 +117,8 @@
       <workItem from="1589616271816" duration="1820000" />
       <workItem from="1589810619782" duration="1154000" />
       <workItem from="1589902402646" duration="3833000" />
-      <workItem from="1589982838588" duration="11147000" />
+      <workItem from="1589982838588" duration="11316000" />
+      <workItem from="1590069454124" duration="10047000" />
     </task>
     <task id="LOCAL-00001" summary=":new: 新增expand node">
       <created>1589389498389</created>
@@ -140,20 +142,20 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="549" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1589389497928" />
-    <state x="461" y="162" key="SettingsEditor" timestamp="1589467806983">
+    <state x="461" y="162" key="SettingsEditor" timestamp="1590075841025">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-8" y="78" key="SettingsEditor/0.0.1280.800@0.0.1280.800" timestamp="1588406491427" />
-    <state x="461" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1589467806983" />
+    <state x="461" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1590075841025" />
     <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1589389506998">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1589389506998" />
-    <state x="640" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1589982839252">
+    <state x="640" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1590069460242">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="427" y="262" key="com.intellij.ide.util.TipDialog/0.0.1280.800@0.0.1280.800" timestamp="1588487673639" />
-    <state x="640" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1589982839252" />
+    <state x="640" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590069460242" />
     <state x="402" y="38" key="refactoring.ChangeSignatureDialog" timestamp="1588410379413">
       <screen x="0" y="0" width="1280" height="800" />
     </state>

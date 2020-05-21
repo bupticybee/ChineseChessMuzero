@@ -79,7 +79,6 @@ PyObject * parse_array(PyObject * arr){
     int height{ PyArray_SHAPE(np_ret)[1] };
     int width{ PyArray_SHAPE(np_ret)[2] };
 
-    // TODO free memory space
     double* c_arr = new double[batch_size * height * width];
 
     double * ret_np;
@@ -177,7 +176,8 @@ void run_mcts_cpp(
         PyObject * action_history,
         PyObject * network,
         PyObject * game,
-        bool train
+        bool train,
+        PyObject * root_py
 ){
     Py_Initialize();
     _import_array();
@@ -209,6 +209,7 @@ void run_mcts_cpp(
 
     // 执行蒙特卡洛树根节点展开
     expand_node(root, root_player,legal_actions,network_result);
+    // TODO 翻译python 的add_exploration_noise函数
 
     Py_DECREF(observation);
     Py_DECREF(network_result);
@@ -252,6 +253,15 @@ void run_mcts_cpp(
         Py_DECREF(value_obj);
     }
     Py_DECREF(action_space);
+
+    // 写回返回的python object
+    PyObject_SetAttrString(root_py,"visit_count",PyInt_FromLong(root->visit_count));
+    PyObject_SetAttrString(root_py,"to_play",PyInt_FromLong(root->to_play));
+    PyObject_SetAttrString(root_py,"prior",PyFloat_FromDouble(root->prior));
+    PyObject_SetAttrString(root_py,"value_sum",PyFloat_FromDouble(root->value_sum));
+    PyObject_SetAttrString(root_py,"reward",PyFloat_FromDouble(root->reward));
+
+    PyObject * children = PyObject_GetAttrString(root_py,"children");
     // TODO 返回python object的Node
 }
 

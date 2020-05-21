@@ -45,7 +45,8 @@ void run_mcts_cpp(
         PyObject * action_history,
         PyObject * network,
         PyObject * game,
-        bool train
+        bool train,
+        PyObject * root_py
         );
 
 PyObject* parse_array(PyObject* arr);
