@@ -51,4 +51,6 @@ void run_mcts_cpp(
 
 PyObject* parse_array(PyObject* arr);
 
+void set_node(PyObject * root,shared_ptr<Node> node_cpp,int depth=1);
+
 #endif

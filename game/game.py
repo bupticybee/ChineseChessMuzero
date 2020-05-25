@@ -40,6 +40,7 @@ class ActionHistory(object):
     def __init__(self, history: List[Action], action_space_size: int):
         self.history = list(history)
         self.action_space_size = action_space_size
+        self.action_space_list = [Action(i) for i in range(self.action_space_size)]
 
     def clone(self):
         return ActionHistory(self.history, self.action_space_size)
@@ -51,8 +52,7 @@ class ActionHistory(object):
         return self.history[-1]
 
     def action_space(self) -> List[Action]:
-        # TODO 这里乱copy还得了，太慢了,这个必须优化
-        return [Action(i) for i in range(self.action_space_size)]
+        return self.action_space_list
 
     def to_play(self) -> Player:
         return Player()

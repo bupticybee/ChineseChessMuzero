@@ -1,6 +1,6 @@
 """Helpers for the MCTS"""
 from typing import Optional
-from copy import deepcopy
+from copy import copy,deepcopy
 
 import numpy as np
 
@@ -53,8 +53,14 @@ class Node(object):
         return self.value_sum / self.visit_count
 
     def clone(self):
-        return deepcopy(self)
-
+        node = Node(self.prior)
+        node.visit_count    = self.visit_count
+        node.to_play        = self.to_play
+        node.value_sum      = self.value_sum
+        node.reward         = self.reward
+        node.hidden_state   = self.hidden_state
+        node.children = {}
+        return node
 
 def softmax_sample(visit_counts, actions, t):
     counts_exp = np.exp(visit_counts) * (1 / t)

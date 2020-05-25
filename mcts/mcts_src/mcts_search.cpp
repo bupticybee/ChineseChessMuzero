@@ -98,11 +98,9 @@ PyObject * parse_array(PyObject * arr){
         std::cout << std::endl;
     }
 
-    std::cout << __LINE__ << std::endl;
     delete[] c_arr;
     Py_DECREF(np_ret);
 
-    std::cout << __LINE__ << std::endl;
     PyObject *pArray = PyArray_SimpleNewFromData(
         3, PyArray_SHAPE(np_ret), NPY_DOUBLE, reinterpret_cast<void*>(ret_np));
     return pArray;
@@ -127,8 +125,6 @@ void expand_node(shared_ptr<Node> node, int player,PyObject * actions,PyObject *
         float action_prob = PyFloat_AsDouble(one_prob);
         node->children[action_int] = make_shared<Node>(action_prob);
         node->children_actions.push_back(action_int);
-        Py_DECREF(one_action_index);
-        Py_DECREF(one_prob);
     }
 }
 
@@ -210,6 +206,8 @@ void run_mcts_cpp(
     // 执行蒙特卡洛树根节点展开
     expand_node(root, root_player,legal_actions,network_result);
     // TODO 翻译python 的add_exploration_noise函数
+    // TODO 校对cpp代码和py的一致性
+    // TODO 查看mcts树是否符合预期
 
     Py_DECREF(observation);
     Py_DECREF(network_result);
@@ -254,14 +252,25 @@ void run_mcts_cpp(
     }
     Py_DECREF(action_space);
 
-    // 写回返回的python object
-    PyObject_SetAttrString(root_py,"visit_count",PyInt_FromLong(root->visit_count));
-    PyObject_SetAttrString(root_py,"to_play",PyInt_FromLong(root->to_play));
-    PyObject_SetAttrString(root_py,"prior",PyFloat_FromDouble(root->prior));
-    PyObject_SetAttrString(root_py,"value_sum",PyFloat_FromDouble(root->value_sum));
-    PyObject_SetAttrString(root_py,"reward",PyFloat_FromDouble(root->reward));
-
-    PyObject * children = PyObject_GetAttrString(root_py,"children");
-    // TODO 返回python object的Node
+    set_node(root_py,root);
 }
 
+void set_node(PyObject * root,shared_ptr<Node> node_cpp,int depth){
+    PyObject_SetAttrString(root,"visit_count",PyInt_FromLong(node_cpp->visit_count));
+    PyObject_SetAttrString(root,"to_play",PyInt_FromLong(node_cpp->to_play));
+    PyObject_SetAttrString(root,"prior",PyFloat_FromDouble(node_cpp->prior));
+    PyObject_SetAttrString(root,"value_sum",PyFloat_FromDouble(node_cpp->value_sum));
+    PyObject_SetAttrString(root,"reward",PyFloat_FromDouble(node_cpp->reward));
+    if(depth <= 0){
+        return;
+    }
+    PyObject * children_dict = PyObject_GetAttrString(root,"children");
+    for(auto entry:node_cpp->children){
+        int action_id = entry.first;
+        shared_ptr<Node> node = entry.second;
+
+        PyObject * one_node = call_function(root,"clone",NULL);
+        PyDict_SetItemString(children_dict,std::to_string(action_id).c_str(),one_node);
+        set_node(one_node,node,depth - 1);
+    }
+}
