@@ -10,6 +10,8 @@
 #include <map>
 #include <Python.h>
 #include <memory>
+#include "dirichlet.hpp"
+#include <random>
 #include <numpy/ndarraytypes.h>
 using namespace std;
 
@@ -52,5 +54,7 @@ void run_mcts_cpp(
 PyObject* parse_array(PyObject* arr);
 
 void set_node(PyObject * root,shared_ptr<Node> node_cpp,int depth=1);
+
+void add_exploration_noise(float root_dirichlet_alpha,float root_exploration_fraction,shared_ptr<Node> node);
 
 #endif

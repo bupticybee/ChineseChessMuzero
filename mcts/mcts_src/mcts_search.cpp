@@ -167,6 +167,27 @@ void backpropagate(std::vector<shared_ptr<Node>> search_path,float value,int to_
     }
 }
 
+void add_exploration_noise(float root_dirichlet_alpha,float root_exploration_fraction,shared_ptr<Node> node){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    vector<double> alphas(node->children.size());
+    std::fill(alphas.begin(),alphas.end(),root_dirichlet_alpha);
+    dirichlet_distribution<std::mt19937> d(alphas);
+
+    map<int,shared_ptr<Node>>::iterator it;
+    it = node->children.begin();
+    float child_prior_sum = 0;
+    for(auto one_child: node->children){
+        child_prior_sum += one_child.second->prior;
+    }
+    for (double noise : d(gen)) {
+        shared_ptr<Node> children = it->second;
+        children->prior = children->prior / child_prior_sum * (1 - root_exploration_fraction) + noise * root_exploration_fraction;
+        it ++;
+    }
+}
+
 void run_mcts_cpp(
         PyObject * config,
         PyObject * action_history,
@@ -205,7 +226,6 @@ void run_mcts_cpp(
 
     // 执行蒙特卡洛树根节点展开
     expand_node(root, root_player,legal_actions,network_result);
-    // TODO 翻译python 的add_exploration_noise函数
     // TODO 校对cpp代码和py的一致性
     // TODO 查看mcts树是否符合预期
 
@@ -221,6 +241,16 @@ void run_mcts_cpp(
     PyObject * discount_obj = PyObject_GetAttrString(config,"discount");
     float discount = PyFloat_AsDouble(discount_obj);
     Py_DECREF(discount_obj);
+
+    PyObject * root_exploration_fraction_obj = PyObject_GetAttrString(config,"root_exploration_fraction");
+    float root_exploration_fraction = PyFloat_AsDouble(root_exploration_fraction_obj);
+    Py_DECREF(root_exploration_fraction_obj);
+
+    PyObject * root_dirichlet_alpha_obj = PyObject_GetAttrString(config,"root_dirichlet_alpha");
+    float root_dirichlet_alpha = PyFloat_AsDouble(root_dirichlet_alpha_obj);
+    Py_DECREF(root_dirichlet_alpha_obj);
+
+    add_exploration_noise(root_exploration_fraction,root_dirichlet_alpha,root);
 
     //初始化search path等等
 

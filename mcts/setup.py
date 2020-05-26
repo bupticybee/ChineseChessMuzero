@@ -22,7 +22,7 @@ setup(
             libraries=[],
             np_pythran=False,
             runtime_library_dirs=[],  # 运行时所需库文件路径
-            depends=['mcts_src/mcts_search.cpp', 'mcts_src/mcts_search.hpp'],  # 编译rect.cpp时依赖的源码
+            depends=['mcts_src/mcts_search.cpp', 'mcts_src/mcts_search.hpp', 'mcts_src/dirichlet.hpp'],  # 编译rect.cpp时依赖的源码
             language='c++',
             extra_compile_args=["-std=c++11"],
             extra_link_args=["-std=c++11"],
