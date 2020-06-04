@@ -40,7 +40,6 @@ def run_mcts(config: MuZeroConfig, action_history: ActionHistory, network: BaseN
     if train:
         add_exploration_noise(config, root)
 
-    # TODO 这里乱clone还得了，太慢了,这个必须优化
     for _ in range(config.num_simulations):
         t0 = time.time()
         history = action_history.clone()

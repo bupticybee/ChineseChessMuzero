@@ -4,7 +4,6 @@ from typing import Dict, List, Callable
 
 import numpy as np
 from torch.nn import Module
-# TODO 替换这里的tensorflow模块并继续完成ChineseChessNetwork
 
 from game.game import Action
 

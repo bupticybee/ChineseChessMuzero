@@ -31,7 +31,8 @@ float Node::value(){
     if(this->visit_count == 0){
         return NAN;
     }
-    return this->value_sum / this->visit_count;
+    float absolute_value =  this->to_play == 1 ? this->value_sum:-this->value_sum;
+    return absolute_value / this->visit_count;
 }
 
 Node::Node(float prior) {
@@ -143,6 +144,8 @@ int select_child(shared_ptr<Node> node,int pb_c_base,float pb_c_init){
     /*
     Select the child with the highest UCB score.
     */
+    // TODO 分析程序瓶颈
+    // TODO 是否可以用最大堆或其他数据结构优化child的select?
     float current_score,max_score=-INFINITY;
     int max_action = -1;
 
@@ -161,7 +164,8 @@ int select_child(shared_ptr<Node> node,int pb_c_base,float pb_c_init){
 void backpropagate(std::vector<shared_ptr<Node>> search_path,float value,int to_play,float discount){
     for(int i = search_path.size() - 1;i >= 0;i --){
         shared_ptr<Node> node = search_path[i];
-        node->value_sum += (node->to_play == to_play? value:-value);
+        node->value_sum += value; //这里的value实际上是区分红黑方的，红方优势趋近于-1，黑方优势趋近于1
+        //(node->to_play == to_play? value:-value);
         node->visit_count += 1;
         value = node->reward + discount * value;
     }
@@ -226,7 +230,6 @@ void run_mcts_cpp(
 
     // 执行蒙特卡洛树根节点展开
     expand_node(root, root_player,legal_actions,network_result);
-    // TODO 校对cpp代码和py的一致性
     // TODO 查看mcts树是否符合预期
 
     Py_DECREF(observation);

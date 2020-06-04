@@ -36,11 +36,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e76484f5-9e4b-4208-aa27-000eec0e00e3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/mcts_src/dirichlet.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mcts_src/mcts_search.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/mcts_src/mcts_search.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcts_src/mcts_search.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/mcts_src/mcts_search.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +119,9 @@
       <workItem from="1590069454124" duration="10322000" />
       <workItem from="1590327935947" duration="130000" />
       <workItem from="1590412800058" duration="9908000" />
-      <workItem from="1590500903792" duration="5834000" />
+      <workItem from="1590500903792" duration="6548000" />
+      <workItem from="1591186933451" duration="606000" />
+      <workItem from="1591282443986" duration="5238000" />
     </task>
     <task id="LOCAL-00001" summary=":new: 新增expand node">
       <created>1589389498389</created>
@@ -155,18 +154,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1589389506998" />
-    <state x="640" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1590500903361">
+    <state x="640" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1591282467591">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="427" y="262" key="com.intellij.ide.util.TipDialog/0.0.1280.800@0.0.1280.800" timestamp="1588487673639" />
-    <state x="640" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590500903361" />
+    <state x="640" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591282467591" />
     <state x="402" y="38" key="refactoring.ChangeSignatureDialog" timestamp="1588410379413">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
     <state x="402" y="38" key="refactoring.ChangeSignatureDialog/0.0.1280.800@0.0.1280.800" timestamp="1588410379413" />
-    <state x="150" y="230" width="672" height="678" key="search.everywhere.popup" timestamp="1590511794986">
+    <state x="150" y="230" width="672" height="678" key="search.everywhere.popup" timestamp="1591288855213">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="150" y="230" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1590511794986" />
+    <state x="150" y="230" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1591288855213" />
   </component>
 </project>

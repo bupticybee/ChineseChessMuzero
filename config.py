@@ -91,7 +91,6 @@ class MuZeroConfig(object):
         return UniformNetwork(self.action_space_size)
 
     def new_optimizer(self) -> torch.optim:
-        # TODO 返回optimizer
         return None
         #return torch.optim.SGD(lr=self.lr, momentum=self.momentum,params=[])
 
