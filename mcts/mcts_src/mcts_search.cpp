@@ -125,7 +125,6 @@ void expand_node(shared_ptr<Node> node, int player,PyObject * actions,PyObject *
         int action_int = PyInt_AsLong(one_action_index);
         float action_prob = PyFloat_AsDouble(one_prob);
         node->children[action_int] = make_shared<Node>(action_prob);
-        node->children_actions.push_back(action_int);
     }
 }
 
@@ -144,8 +143,11 @@ int select_child(shared_ptr<Node> node,int pb_c_base,float pb_c_init){
     /*
     Select the child with the highest UCB score.
     */
-    // TODO 分析程序瓶颈
-    // TODO 是否可以用最大堆或其他数据结构优化child的select?
+    // Q: 是否可以用最大堆或其他数据结构优化child的select?
+    //     A: 不可以，因为parent->visit_count和也会变化，所以实际上每次backpropagate后每个子节点的value都发生了变化
+    // Q: 追问：那么是否可以在select的时候将parent的visit_count看作常数进行select？是否会引入量纲过小浮点溢出问题或者其他问题？
+    //     A: 同样不可以，因为ucb value实际上等于prior score + value score，其中prior score的相对大小是与parent的visit
+    //          count 无关，但是ucb score并不是这样,所以这样的优化也是不可行的。
     float current_score,max_score=-INFINITY;
     int max_action = -1;
 

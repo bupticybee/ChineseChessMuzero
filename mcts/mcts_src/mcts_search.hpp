@@ -27,7 +27,6 @@ class Node{
         float prior;
         float value_sum;
         std::map<int,shared_ptr<Node>> children;
-        std::vector<int> children_actions;
         PyObject * hidden_state;
         double reward;
         bool expanded();
